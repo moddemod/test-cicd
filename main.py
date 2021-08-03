@@ -93,7 +93,15 @@ def login(username, password):
     }
 
     # response = requests.post(url=url, data=data, headers=headers, proxies=proxy, verify=False)
-    response = requests.post(url=url, data=data, headers=headers, timeout=3)
+    response = ''
+    count = 0
+    while count < 3:
+        try:
+            response = requests.post(url=url, data=data, headers=headers, timeout=3)
+            print(f'[+]第{count + 1}次登录...')
+            break
+        except requests.exceptions.RequestException:
+            count += 1
     # print(response.url)
     # print(response.text)
     try:
@@ -208,7 +216,7 @@ def fill_form(username, address):
     response = requests.post(url=post_url, headers=headers_form, data=data)
 
     if response.json()['code'] == '#E101080000000':
-        print(response.json()['msg'])
+        print(f'[+]{response.json()["msg"]}')
         return False
     print(response.text)
     return True
@@ -313,7 +321,7 @@ def submit():
 
     key = jump_auth_with_key()
     password = check_user_identy(username, password, key)
-    ok = (username, password)
+    ok = login(username, password)
     if ok:
         pre_post()
         if not judge_fill():
