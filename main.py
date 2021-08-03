@@ -63,7 +63,7 @@ def jump_auth_with_key():
     :return:
     """
     jump_auth_url = 'http://stu.hfut.edu.cn/xsfw/sys/emapfunauth/casValidate.do?service=/xsfw/sys/swmxsyqxxsjapp/*default/index.do'
-    requests.get(url=jump_auth_url, headers=headers)
+    requests.get(url=jump_auth_url, headers=headers, timeout=3)
     JSESSIONID_url = 'https://cas.hfut.edu.cn/cas/vercode'
     requests.get(url=JSESSIONID_url, headers=headers)
 
