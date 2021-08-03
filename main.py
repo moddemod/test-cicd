@@ -93,7 +93,7 @@ def login(username, password):
     }
 
     # response = requests.post(url=url, data=data, headers=headers, proxies=proxy, verify=False)
-    response = requests.post(url=url, data=data, headers=headers)
+    response = requests.post(url=url, data=data, headers=headers, timeout=3)
     # print(response.url)
     # print(response.text)
     try:
@@ -313,7 +313,7 @@ def submit():
 
     key = jump_auth_with_key()
     password = check_user_identy(username, password, key)
-    ok = login(username, password)
+    ok = (username, password)
     if ok:
         pre_post()
         if not judge_fill():
